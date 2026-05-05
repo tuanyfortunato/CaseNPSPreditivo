@@ -1,14 +1,6 @@
 # Case NPS Preditivo
 
-## Objetivo do projeto
-Analisar dados operacionais de pedidos, logística e atendimento para identificar fatores que impactam o NPS e construir um modelo preditivo capaz de antecipar clientes detratores.
-
-## Descrição da base de dados
-O dataset contém informações por pedido, incluindo:
-- dados do pedido: valor, quantidade de itens, desconto, forma de pagamento
-- dados logísticos: tempo de entrega, atraso, tentativas, frete
-- atendimento: contatos com SAC, tempo de resolução, reclamações
-- indicadores internos: recompra em 30 dias, score interno de satisfação e NPS
+Projeto para analisar dados de pedidos e identificar quais fatores operacionais têm mais impacto no NPS.
 
 ## Metodologia utilizada
 - Entendimento do negócio e definição do alvo
@@ -17,15 +9,22 @@ O dataset contém informações por pedido, incluindo:
 - Modelo de classificação para prever detratores
 - Avaliação de performance com acurácia, ROC AUC, relatório de classificação e matriz de confusão
 
-## Como reproduzir os resultados
-1. Ative o ambiente virtual: `venv\Scripts\Activate.ps1`
-2. Instale dependências: `pip install -r requirements.txt`
-3. Execute o script principal: `python src\analise_nps.py`
-4. Abra o notebook: `notebooks\CaseNpsPreditivo_Final.ipynb`
+## Dados usados
+A base traz informações de cada pedido, incluindo:
+- detalhes do pedido: valor, quantidade, desconto e forma de pagamento
+- logística: prazo, atraso, número de tentativas e frete
+- atendimento: contatos com SAC, reclamações e tempo de resolução
+- indicadores internos: NPS e score interno de satisfação
 
-## Estrutura do repositório
-- `data/`: base de dados CSV
-- `notebooks/`: análise exploratória e storytelling
-- `src/`: script de análise e modelagem
-- `reports/`: espaço para entregáveis adicionais
+## Como rodar
+1. Ative o ambiente virtual: `venv\Scripts\Activate.ps1`
+2. Instale as dependências: `pip install -r requirements.txt`
+3. Execute o script: `python src\analise_nps.py`
+4. Veja o notebook: `notebooks\CaseNpsPreditivo_Final.ipynb`
+
+## Estrutura
+- `data/`: arquivo CSV do desafio
+- `src/`: código principal de análise
+- `notebooks/`: notebook com a jornada de análise
+- `reports/`: material de apoio ou apresentações
 

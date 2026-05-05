@@ -1,10 +1,8 @@
-"""Análise de NPS Preditivo.
+"""Análise do desafio de NPS.
 
-Este script carrega a base de dados de pedidos e interações com o cliente,
-realiza limpeza, engenharia de features e treina um modelo de classificação
-para prever clientes detratores antes da pesquisa de NPS ser aplicada.
-
-O alvo é `is_detractor`, derivado de `nps_score <= 6`.
+Este script traz o caminho completo: leitura dos dados, tratamento,
+algumas análises e teste de hipótese para entender o impacto do atraso
+no NPS.
 """
 
 import os
@@ -25,32 +23,32 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 DATA_FILENAME = 'desafio_nps_fase_1.csv'
 
-# Função principal para executar a análise completa de NPS preditivo, desde o carregamento dos dados até a avaliação do modelo e extra
+# Ponto de entrada do script
 def main() -> None:
-    #Carregamento dos dados
+    # carrega os dados
     df = load_data()
 
-    #Pré-Processamento
+    # prepara o conjunto de variáveis
     df = preprocess(df)
 
-    # Análise exploratória
+    # mostra um resumo rápido da base
     data_overview(df)
 
-    # Análise de correlação
+    # calcula correlação com o NPS
     correlation_analysis(df)
     
-    # Teste de hipótese
+    # compara NPS de pedidos no prazo versus atrasados
     hypothesis_test(df)
 
 
-# Buscando os dados e pré-processamento
+# Carrega o arquivo CSV
 def load_data(data_path: str | None = None) -> pd.DataFrame:
     if data_path is None:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         data_path = os.path.join(current_dir, '..', 'data', DATA_FILENAME)
     return pd.read_csv(data_path)
 
-#Limpeza do Dataframe e classificando os clientes em detratores, passivos e promotores
+# Limpa dados e cria variáveis de NPS
 def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df = df.drop(columns=['customer_id', 'order_id'])
@@ -65,7 +63,7 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# Análise exploratória
+# Mostra os principais números da base
 def data_overview(df: pd.DataFrame) -> None:
     print('--- Visão geral dos dados ---')
     print('Shape:', df.shape)
@@ -75,7 +73,7 @@ def data_overview(df: pd.DataFrame) -> None:
     print(df['nps_category'].value_counts())
     print('\n')
 
-# Correlação entre variáveis numéricas e NPS Score
+# Calcula correlação entre as variáveis numéricas e o NPS
 def correlation_analysis(df: pd.DataFrame) -> pd.Series:
     numeric = df.select_dtypes(include=[np.number])
     correlation = numeric.corr()['nps_score'].sort_values(ascending=False)
@@ -83,7 +81,7 @@ def correlation_analysis(df: pd.DataFrame) -> pd.Series:
     print(correlation)
     return correlation
 
-# Teste de hipótese para comparar NPS Score entre clientes com atraso e sem atraso
+# Compara NPS de pedidos no prazo e atrasados
 def hypothesis_test(df: pd.DataFrame) -> None:
     atrasos = df[df['delivery_delay_days'] > 0]['nps_score']
     prazo = df[df['delivery_delay_days'] == 0]['nps_score']
