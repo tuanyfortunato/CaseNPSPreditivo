@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação Executiva - NPS Preditivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #0F172A;
+            --accent: #E11D48;
+            --bg-slide: #F8FAFC;
+            --text-main: #334155;
+            --text-dark: #0F172A;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #0F172A;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #presentation-container {
+            width: 1280px;
+            height: 720px;
+            background: var(--bg-slide);
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            padding: 60px 80px;
+            display: none;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Elementos de Estilo --- */
+        .capa { justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: white; }
+        .final { justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: white; }
+        .capa h1 { font-size: 56px; margin-bottom: 20px; color: #60A5FA; }
+        .capa p { font-size: 24px; opacity: 0.8; }
+        .presenter { margin-top: 40px; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; }
+
+        .slide-title { font-family: 'Poppins', sans-serif; font-size: 36px; color: var(--secondary); margin-bottom: 30px; border-left: 8px solid var(--primary); padding-left: 20px; }
+
+        .content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        
+        .chart-placeholder {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .one-liner {
+            margin-top: auto;
+            background: #EEF2FF;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* --- Controles --- */
+        .controls { position: absolute; bottom: 20px; right: 40px; display: flex; gap: 10px; z-index: 100; }
+        .btn { background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: var(--primary); }
+        .progress { position: absolute; bottom: 0; left: 0; height: 5px; background: var(--primary); transition: width 0.3s; }
+
+        ul { margin-left: 20px; }
+        li { margin-bottom: 12px; font-size: 18px; }
+        strong { color: var(--secondary); }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        <!-- Slide 1: Capa -->
+        <div class="slide active capa">
+            <h1>Satisfação do Cliente<br>Análise Preditiva de NPS</h1>
+            <div class="presenter">
+                Apresentado por: Tuany Fortunato do Carmo
+            </div>
+        </div>
+
+        <!-- Slide 2: Problema -->
+        <div class="slide">
+            <h2 class="slide-title">O Desafio: Escala vs. Satisfação</h2>
+            <div class="content">
+                <div>
+                    <p>Nossa operação cresceu rápido, mas a satisfação ficou pelo caminho. O grande problema é que somos <strong>reativos</strong>.</p>
+                    <br>
+                    <ul>
+                        <li>Descobrimos o problema só <strong>após</strong> o encerramento da jornada.</li>
+                        <li>Quando o NPS chega, o cliente já teve a experiência ruim.</li>
+                        <li>Não estamos identificando os sinais de alerta cedo o bastante.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="one-liner">
+                <i class="fa-solid fa-lightbulb"></i> Pergunta Central: Como antecipar a insatisfação antes que ela se torne uma nota baixa?</br></br>
+                E quais fatores operacionais influenciam diretamente para que os cliente sejam detratores?
+            </div>
+        </div>
+
+        <!-- Slide 3: Diagnóstico -->
+        <div class="slide">
+            <h2 class="slide-title">Termômetro Atual da Satisfação</h2>
+            <div class="content">
+                <div class="chart-placeholder">
+                    <!-- Aqui entra o gráfico de pizza/rosca das categorias -->
+                    <div style="text-align: center; padding: 20px;">
+                        <p style="font-size: 14px;"><img src="reports/nps por categoria.png" alt="Gráfico de NPS por Categoria"></p>                        
+                    </div>
+                </div>
+                <div>
+                    <h3>O cenário é crítico:</h3>
+                    <ul>
+                        <li><strong>74% da nossa base são Detratores.</strong></li>
+                        <li>Apenas 8% são Promotores.</li>
+                        <li>Nota média de <strong>4,3</strong>: estamos abaixo do padrão de mercado para e-commerce.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="one-liner">
+                <i class="fa-solid fa-circle-exclamation"></i> Mensagem: A experiência atual do cliente não está adequada, e precisamos entender os motivos para agir pró-ativamente.
+            </div>
+        </div>
+
+        <!-- Slide 4: Vilão Logístico -->
+        <div class="slide">
+            <h2 class="slide-title">Logística: O Maior Destruidor de Valor</h2>
+            <div class="content">
+                <div class="chart-placeholder">
+                    <!-- Aqui entra o Boxplot de Atraso -->
+                    <p><img src="reports/NPS Faixa Atraso.png" alt="Gráfico de NPS por Faixa de Atraso"></p>
+                </div>
+                <div>
+                    <p>O dado é implacável: o atraso na entrega é o fator que mais empurra o cliente para a detração.</p>
+                    <br>
+                    <ul>
+                        <li><strong>1 dia de atraso:</strong> queda drástica na nota.</li>
+                        <li><strong>3+ dias de atraso:</strong> o cliente vira detrator com quase 100% de certeza.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="one-liner" style="background-color: #FEE2E2; color: #991B1B; border-color: #EF4444;">
+                <i class="fa-solid fa-truck-fast"></i> O atraso logístico é o "ponto de ruptura" da nossa experiência.
+            </div>
+        </div>
+
+        <!-- Slide 5: Efeito Bola de Neve -->
+        <div class="slide">
+            <h2 class="slide-title">SAC: Onde o Problema se agrava</h2>
+            <div class="content">
+                <div class="chart-placeholder">
+                    <!-- Aqui entra o Gráfico de Barras de Contatos SAC -->
+                    <p><img src="reports/Média de NPS por Contato SAC.png" alt="Gráfico de Média de NPS por Contato SAC"></p>
+                </div>
+                <div>
+                    <p>O cliente não quer ser atendido; ele quer que o processo funcione.</p>
+                    <br>
+                    <ul>
+                        <li>Quanto mais o cliente aciona o SAC, menor é a nota.</li>
+                        <li><strong>3+ contatos</strong> indicam que o problema não foi resolvido na primeira vez.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="one-liner">
+                <i class="fa-solid fa-headset"></i> Resolução no 1º contato com o cliente é vital para salvar o NPS.
+            </div>
+        </div>
+
+        <!-- Slide 6: CSAT vs NPS -->
+        <div class="slide">
+            <h2 class="slide-title">CSAT Interno vs. Realidade (NPS)</h2>
+            <div class="content">
+                <div class="chart-placeholder">
+                    <!-- Aqui entra o Scatter Plot -->
+                    <p><img src="reports/CSAT Interno.png" alt="Gráfico de Relação entre CSAT Interno e NPS"></p>
+                </div>
+                <div>
+                    <p>A percepção interna do atendimento (CSAT) pode ser enganosa.</p>
+                    <br>
+                    <ul>
+                        <li>Muitas vezes o atendente é educado (CSAT alto), mas o processo falhou (NPS baixo).</li>
+                        <li><strong>Um bom atendimento não apaga uma entrega ruim.</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="one-liner">
+                <i class="fa-solid fa-scale-unbalanced"></i> Não podemos nos confortar com métricas de "simpatia" se a operação falha.
+            </div>
+        </div>
+
+        <!-- Slide 7: Estratégia IA -->
+        <div class="slide">
+            <h2 class="slide-title">A Solução: Inteligência Artificial</h2>
+            <div class="content">
+                <div>
+                    <p>Proposta: <strong>Modelo de Classificação Binária</strong>.</p>
+                    <br>
+                    <p>Em vez de esperar o cliente responder, vamos prever quem está em risco com base em:</p>
+                    <ul>
+                        <li>Dias de atraso atualizados em tempo real.</li>
+                        <li>Número de tentativas de entrega.</li>
+                        <li>Reincidência de contatos no SAC.</li>
+                    </ul>
+                </div>
+                <div style="background: var(--secondary); color: white; padding: 30px; border-radius: 12px; text-align: center;">
+                    <i class="fa-solid fa-robot" style="font-size: 60px; margin-bottom: 20px;"></i>
+                    <h3>Saída do Modelo:</h3>
+                    <p style="font-size: 28px; color: #60A5FA;">"Cliente em Risco: SIM/NÃO"</p>
+                </div>
+            </div>
+            <div class="one-liner">
+                <i class="fa-solid fa-bullseye"></i> O objetivo é munir o time de CS com uma lista de ação ANTES da pesquisa.
+            </div>
+        </div>
+
+        <!-- Slide 8: Recomendações -->
+        <div class="slide">
+            <h2 class="slide-title">Plano de Ação: Próximos 30 Dias</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; border-top: 4px solid var(--primary);">
+                    <strong>1. Alerta de Atraso Crítico</strong>
+                    <p style="font-size: 16px;">Priorizar pedidos com 2+ dias de atraso para entrega "super expressa".</p>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 8px; border-top: 4px solid var(--primary);">
+                    <strong>2. Blindagem de Reputação</strong>
+                    <p style="font-size: 16px;">Ação proativa (cupom/estorno) para clientes mapeados como "Em Risco".</p>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 8px; border-top: 4px solid var(--primary);">
+                    <strong>3. Eficiência no SAC</strong>
+                    <p style="font-size: 16px;">Escalar automaticamente chamados recorrentes de um mesmo cliente.</p>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 8px; border-top: 4px solid var(--primary);">
+                    <strong>4. Integração de Dados</strong>
+                    <p style="font-size: 16px;">Unificar visão de Logística e Atendimento em um único dashboard. Para acompanharmos o desempenho após as ações implementadas.</p>
+                </div>
+            </div>
+            <div class="one-liner" style="margin-top: 40px;">
+                <i class="fa-solid fa-rocket"></i> Transformar dados em ação é o caminho para recuperar a confiança.
+            </div>
+        </div>
+
+        <!-- Slide 9: FIM -->
+        <div class="slide final">
+            <h1>Muito obrigada pela atenção!</h1>
+            <h1>Até a próxima!</h1>
+            <div class="presenter">
+                Apresentado por: Tuany Fortunato do Carmo
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress" id="progress-bar" style="width: 0%;"></div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="btn" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progress-bar');
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            slides[index].classList.add('active');
+            progressBar.style.width = ((index + 1) / slides.length) * 100 + '%';
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
